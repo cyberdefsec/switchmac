@@ -22,4 +22,5 @@ EXAMPLES:
 Contacts
 ========
 
-email: makentosh1@mail.ru URL: https://github.com/AlekseiErilin1988
+email: makentosh1@mail.ru
+URL: https://github.com/AlekseiErilin1988
