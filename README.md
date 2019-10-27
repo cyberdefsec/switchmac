@@ -5,7 +5,7 @@
 
 Description
 
-The switchmac replaces mac address without disabling the interface
+The switchmac replaces mac address without disabling the interface.
 
 
 OPTIONS:
