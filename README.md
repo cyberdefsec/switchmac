@@ -8,6 +8,8 @@ Description
 
 The switchmac replaces mac address without disabling the interface.
 
+Using
+=====
 
 OPTIONS:
 	-r Random change mac address
