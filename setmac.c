@@ -39,7 +39,7 @@ static int device_shutdown(char *flags, char *dev){
         if(strcmp(flags, "up") == 0)
             device.ifr_flags |= (IFF_UP | IFF_BROADCAST | IFF_RUNNING | IFF_MULTICAST);
         else if(strcmp(flags, "down") == 0)
-            device.ifr_flags &= IFF_UP;
+            device.ifr_flags &= ~IFF_UP;
         else{
             close(sock);
             return EOF;
