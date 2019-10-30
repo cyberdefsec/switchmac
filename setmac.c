@@ -31,25 +31,17 @@ static bool is_mac(char *mac){
     return false;
 }
 
-static int device_shutdown(char *flags, char *dev){
-    int sock = 0;
+static int device_shutdown(int sock, char *dev){    
     struct ifreq device;
-    if((sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_IP)) != EOF){
-        snprintf(device.ifr_name, IFNAMSIZ - 1, "%s", dev);
-        if(strcmp(flags, "up") == 0)
-            device.ifr_flags |= (IFF_UP | IFF_BROADCAST | IFF_RUNNING | IFF_MULTICAST);
-        else if(strcmp(flags, "down") == 0)
+    snprintf(device.ifr_name, IFNAMSIZ - 1, "%s", dev);
+    if(ioctl(sock, SIOCGIFFLAGS, &device) != EOF){
+        if(device.ifr_flags & IFF_UP)
             device.ifr_flags &= ~IFF_UP;
-        else{
-            close(sock);
-            return EOF;
-        }
-        if(ioctl(sock, SIOCSIFFLAGS, &device) != EOF){
-            close(sock);
+        else
+            device.ifr_flags |= IFF_UP;
+        if(ioctl(sock, SIOCSIFFLAGS, &device) != EOF)            
             return EXIT_SUCCESS;
-        }
-        close(sock);
-    }
+    }            
     return EOF;
 }
 
@@ -71,9 +63,9 @@ int setmac(char *mac, char *dev){
                                                      &devmac.ifr_hwaddr.sa_data[4],
                                                      &devmac.ifr_hwaddr.sa_data[5]);
 
-        device_shutdown("down", dev);
+        device_shutdown(sock, dev);
         if(ioctl(sock, SIOCSIFHWADDR, &devmac) != EOF){
-            device_shutdown("up", dev);
+            device_shutdown(sock, dev);
             close(sock);
             return EXIT_SUCCESS;
         }
@@ -95,9 +87,9 @@ int setmac_rand(char *dev){
             else
                 devmac.ifr_hwaddr.sa_data[index] = (randoms() >> index);
         }
-        device_shutdown("down", dev);
+        device_shutdown(sock, dev);
         if(ioctl(sock, SIOCSIFHWADDR, &devmac) != EOF){
-            device_shutdown("up", dev);
+            device_shutdown(sock, dev);
             close(sock);
             return EXIT_SUCCESS;
         }
