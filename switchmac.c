@@ -8,10 +8,10 @@
 
 void help(void){
     printf("OPTIONS:\n\t");
-    printf("-r Random change mac address\n\t");
-    printf("-g Get mac address\n\t");
-    printf("-m Add mac address\n\t");
-    printf("-h Using help\n");
+    printf("-r\tRandom change mac address\n\t");
+    printf("-g\tGet mac address\n\t");
+    printf("-m\tAdd mac address\n\t");
+    printf("-h\tUsing help\n");
     printf("EXAMPLES:\n\t");
     printf("switchmac -r eth0\n\t");
     printf("switchmac -m 50:2a:14:af:b5:A4 eth0\n");
