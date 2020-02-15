@@ -16,8 +16,7 @@ install
 =======
 
 	git clone https://github.com/AlekseiErilin1988/switchmac.git
-	cd /switchmac
-	make
+	cd /switchmac	
 	make install
 
 Using
