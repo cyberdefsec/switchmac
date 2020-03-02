@@ -3,6 +3,6 @@
 
 #define MAC_SIZE 18
 
-int getmac(char *macaddr, size_t sizebuf, char *dev);
+int getmac(char *mac_addr, size_t size_buf, char *dev);
 
 #endif
