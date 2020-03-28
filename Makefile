@@ -1,11 +1,12 @@
 TARGET = switchmac
 PREFIX = /usr/local/bin
 CC = gcc
+OBJECTS = switchmac.o setmac.o getmac.o 
 
 all: $(TARGET)
 
-$(TARGET): switchmac.o setmac.o getmac.o 
-	$(CC) switchmac.o setmac.o getmac.o -o switchmac
+$(TARGET): $(OBJECTS)
+	$(CC) $(OBJECTS) -o $(TARGET)	
 	
 switchmac.o: switchmac.c
 	$(CC) -c switchmac.c
