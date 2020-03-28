@@ -7,16 +7,16 @@ OBJECTS = switchmac.o setmac.o getmac.o
 all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $(TARGET)	
+	$(CC) $(CFLAGS) $(OBJECTS) -o $(TARGET)	
 	
 switchmac.o: switchmac.c
-	$(CC) -c switchmac.c
+	$(CC) $(CFLAGS) -c switchmac.c
 
 setmac.o: setmac.c setmac.h
-	$(CC) -c setmac.c
+	$(CC) $(CFLAGS) -c setmac.c
 	
 getmac.o: getmac.c getmac.h
-	$(CC) -c getmac.c
+	$(CC) $(CFLAGS) -c getmac.c
 	
 clean:
 	rm -rf *.o switchmac
