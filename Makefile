@@ -10,10 +10,10 @@ $(TARGET): switchmac.o setmac.o getmac.o
 switchmac.o: switchmac.c
 	$(CC) -c switchmac.c
 
-setmac.o : setmac.c setmac.h
+setmac.o: setmac.c setmac.h
 	$(CC) -c setmac.c
 	
-getmac.o : getmac.c getmac.h
+getmac.o: getmac.c getmac.h
 	$(CC) -c getmac.c
 	
 clean:
