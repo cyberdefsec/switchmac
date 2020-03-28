@@ -1,5 +1,6 @@
 TARGET = switchmac
 PREFIX = /usr/local/bin
+CFLAGS = -Wall -Wextra
 CC = gcc
 OBJECTS = switchmac.o setmac.o getmac.o 
 
