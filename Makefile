@@ -7,7 +7,7 @@ OBJECTS = switchmac.o setmac.o getmac.o
 all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) -o $(TARGET)	
+	$(CC) $(OBJECTS) -o $(TARGET)	
 	
 switchmac.o: switchmac.c
 	$(CC) $(CFLAGS) -c switchmac.c
