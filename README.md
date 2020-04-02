@@ -15,7 +15,7 @@ Requests
 install
 =======
 
-	git clone https://github.com/AlekseiErilin1988/switchmac.git
+	git clone https://github.com/ErilinAleksei/switchmac.git
 	cd /switchmac	
 	make
 	make install
