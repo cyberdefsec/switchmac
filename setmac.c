@@ -14,9 +14,8 @@
 
 #include "setmac.h"
 
-static int randoms(void){
-    srand(time(NULL));
-    return rand() % (255 - 0 + 1);
+static int random(void){
+    return 10 + rand() % ((254 + 1) - 10);
 }
 
 static bool is_mac(char *mac){
@@ -78,14 +77,15 @@ int setmac_rand(char *dev){
     int sock = 0;
     int index = 0;
     struct ifreq dev_mac;
+    srand(time(NULL));
     if((sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_IP)) != EOF){
         snprintf(dev_mac.ifr_name, IFNAMSIZ - 1, "%s", dev);
         dev_mac.ifr_hwaddr.sa_family = ARPHRD_ETHER;
         for(index = 0; index < 6; ++index){
             if(index == 0)
-                dev_mac.ifr_hwaddr.sa_data[0] = (randoms() & 254);
+                dev_mac.ifr_hwaddr.sa_data[0] = (random() & 254);
             else
-                dev_mac.ifr_hwaddr.sa_data[index] = (randoms() >> index);
+                dev_mac.ifr_hwaddr.sa_data[index] = random();
         }
         device_shutdown(sock, dev);
         if(ioctl(sock, SIOCSIFHWADDR, &dev_mac) != EOF){
