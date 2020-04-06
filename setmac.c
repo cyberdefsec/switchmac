@@ -14,7 +14,7 @@
 
 #include "setmac.h"
 
-static int random(void){
+static uint random(void){
     return 10 + rand() % ((254 + 1) - 10);
 }
 
