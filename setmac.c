@@ -14,7 +14,7 @@
 
 #include "setmac.h"
 
-static uint random(void){
+static uint randoms(void){
     return 10 + rand() % ((254 + 1) - 10);
 }
 
@@ -83,9 +83,9 @@ int setmac_rand(char *dev){
         dev_mac.ifr_hwaddr.sa_family = ARPHRD_ETHER;
         for(index = 0; index < 6; ++index){
             if(index == 0)
-                dev_mac.ifr_hwaddr.sa_data[0] = (random() & 254);
+                dev_mac.ifr_hwaddr.sa_data[0] = (randoms() & 254);
             else
-                dev_mac.ifr_hwaddr.sa_data[index] = random();
+                dev_mac.ifr_hwaddr.sa_data[index] = randoms();
         }
         device_shutdown(sock, dev);
         if(ioctl(sock, SIOCSIFHWADDR, &dev_mac) != EOF){
