@@ -89,15 +89,31 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent){
     hlayMac->addWidget(sixOctet);
     setOctetEnabled(false);
 
-    btnRandMac = new QPushButton(tr("Random"), this);
+    btnRandMac = new QPushButton(tr("Generation"), this);
     btnRandMac->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
     hlayMac->addWidget(btnRandMac);
 
+    hlayInfo = new QHBoxLayout;
+    vlayout->addLayout(hlayInfo);
+
+    infoMsg = new QLabel(this);
+    infoMsg->setStyleSheet("color: green");
+    infoMsg->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
+    hlayInfo->addWidget(infoMsg);
+
     btnChangeMac = new QPushButton(tr("Change"), this);
     btnChangeMac->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-    vlayout->addWidget(btnChangeMac);
-    vlayout->addStretch();
+    hlayInfo->addWidget(btnChangeMac);
+    hlayInfo->addSpacing(1);
+
+    setInterfaces();
+
+    mac = new Mac(this);
+
     connect(onRandom, SIGNAL(stateChanged(int)), this, SLOT(onRandMac()));
+    connect(btnReload, SIGNAL(clicked()), this, SLOT(setInterfaces()));
+    connect(listInterface, SIGNAL(currentTextChanged(const QString &)), this, SLOT(currentMac(const QString &)));
+    connect(btnChangeMac, SIGNAL(clicked()), this, SLOT(setMac()));
 }
 
 MainWindow::~MainWindow(){
@@ -112,6 +128,39 @@ void MainWindow::setOctetEnabled(bool state){
     fiveOctet->setEnabled(state);
     sixOctet->setEnabled(state);
 
+}
+
+QList<QNetworkInterface> MainWindow::getInterfaces(){
+    QList<QNetworkInterface> interface;
+    interface = QNetworkInterface::allInterfaces();
+    for(int count = 0; count < interface.size(); ++count){
+        if(!(interface.at(count).flags() & QNetworkInterface::IsUp) || (interface.at(count).flags() & QNetworkInterface::IsLoopBack))
+            interface.removeAt(count);
+    }
+    return interface;
+}
+
+void MainWindow::setInterfaces(){
+    listInterface->clear();
+    foreach(QNetworkInterface interface, getInterfaces()){
+        listInterface->addItem(interface.name());
+        if(QNetworkInterface::IsRunning & interface.flags()){
+            listInterface->setCurrentText(interface.name());
+            listInterface->setToolTip(mac->getMacAddress(interface.name()));
+        }
+    }
+}
+
+void MainWindow::currentMac(const QString &name){
+    listInterface->setToolTip(mac->getMacAddress(name));
+}
+
+void MainWindow::setMac(){
+    QString macAddr;
+    if(!(oneOctet->text().isEmpty() && twoOctet->text().isEmpty() && threeOctet->text().isEmpty() && fourOctet->text().isEmpty() && fiveOctet->text().isEmpty() && sixOctet->text().isEmpty()))
+        macAddr.append(QString("%1:%2:%3:%4:%5:%6").arg(oneOctet->text()).arg(twoOctet->text()).arg(threeOctet->text()).arg(fourOctet->text()).arg(fiveOctet->text()).arg(sixOctet->text()));
+    else
+        infoMsg->setText(tr("Enter mac address!"));
 }
 
 void MainWindow::onRandMac(){

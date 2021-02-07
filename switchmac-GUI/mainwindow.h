@@ -9,6 +9,10 @@
 #include <QCheckBox>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QMessageBox>
+#include <QtNetwork/QNetworkInterface>
+
+#include "mac.h"
 
 #define MIN_HEIGHT 0
 #define MAX_HEIGHT 660
@@ -27,6 +31,7 @@ private:
     QVBoxLayout *vlayout = nullptr;
     QHBoxLayout *hlayout = nullptr;
     QHBoxLayout *hlayMac = nullptr;
+    QHBoxLayout *hlayInfo = nullptr;
     QLabel *nameInterface = nullptr;
     QComboBox *listInterface = nullptr;
     QPushButton *btnReload = nullptr;
@@ -43,12 +48,18 @@ private:
     QLabel *fiveSeparator = nullptr;
     QLineEdit *sixOctet = nullptr;
     QPushButton *btnRandMac = nullptr;
+    QLabel *infoMsg = nullptr;
     QPushButton *btnChangeMac = nullptr;
 
     void setOctetEnabled(bool state);
+    QList<QNetworkInterface> getInterfaces();
+    Mac *mac = nullptr;
 
 public slots:
     void onRandMac();
+    void setInterfaces();
+    void currentMac(const QString &name);
+    void setMac();
 };
 
 #endif // MAINWINDOW_H
