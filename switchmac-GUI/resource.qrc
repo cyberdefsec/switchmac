@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>ico/mac.ico</file>
-        <file>ico/reload.ico</file>
-    </qresource>
-</RCC>
