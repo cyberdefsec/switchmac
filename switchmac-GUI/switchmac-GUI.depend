@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1612813425 source:/home/aleks/src/switchmac-GUI/mainwindow.c
+1613230945 source:/home/aleks/src/switchmac-GUI/mainwindow.c
 	"mainwindow.h"
 
-1612814206 /home/aleks/src/switchmac-GUI/mainwindow.h
+1613230446 /home/aleks/src/switchmac-GUI/mainwindow.h
 	<gtk/gtk.h>
 	<stdbool.h>
 
