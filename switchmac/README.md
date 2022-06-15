@@ -27,8 +27,3 @@ Using
 		switchmac -r eth0
 		switchmac -m 50:2a:14:af:b5:A4 eth0
 	
-Contacts
-========
-
-	email: makentosh1@mail.ru
-	URL: https://github.com/ErilinAleksei
