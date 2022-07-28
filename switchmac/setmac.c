@@ -15,7 +15,7 @@
 #include "setmac.h"
 
 static uint randoms(void){
-    return 10 + rand() % ((254 + 1) - 10);
+    return (10 + rand() % 255);
 }
 
 static bool is_mac(char *mac){
